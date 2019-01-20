@@ -18,8 +18,14 @@ const accountController = require(path.join(__dirname,"../controllers/accountCon
 // 3.获取页面的请求
 router.get('/register',accountController.getRegisterPage)
 
-// 注册
+// 3注册
 router.post('/register',accountController.register)
+
+// 3登录
+router.get('/login',accountController.getLoginPage)
+
+// 4获取验证码
+router.get('/vcode',accountController.getVcodeImg)
 
 
 // 4.导出路由模块

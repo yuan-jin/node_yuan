@@ -3,11 +3,15 @@
 const express = require('express')
 const path = require('path')
 const bodyParser=require('body-parser')
-
+// 导入存储session的包
+const session = require('express-session')
 
 
 //创建app
 const app = express()
+
+// 导入存储session的包第二句话
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000 }}))
 
 
 // parse application/x-www-form-urlencoded
