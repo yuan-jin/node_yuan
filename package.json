@@ -1,0 +1,25 @@
+{
+  "name": "node_yuan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon src/app.js"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuan-jin/node_yuan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuan-jin/node_yuan/issues"
+  },
+  "homepage": "https://github.com/yuan-jin/node_yuan#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
