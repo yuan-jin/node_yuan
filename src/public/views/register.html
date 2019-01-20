@@ -5,6 +5,9 @@
     <title>欢迎注册</title>
     <!-- css路径 -->
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <!-- 引入jquery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/md5.js"></script>
 </head>
 
 <body>
@@ -39,5 +42,21 @@
     </div>
 </body>
 <script>
+    // 发送ajax请求
+    function register(){
+        const username = $('#usernameId').val();
+        const password = $.md5($('#passwordId').val()+"@yyy");
+        $.post('/account/register',{username,password},function(retult){
+            console.log(retult)
+            if(retult.status != 0){//失败
+                alert(retult.message)
+
+            }else{
+                location.href = "/account/login"
+            }
+            
+        })
+
+    }
 </script>
 </html> 
