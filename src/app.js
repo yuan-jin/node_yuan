@@ -27,13 +27,21 @@ app.use(bodyParser.json())
 // })
 
 
+
 //设置静态资源根目录
 app.use(express.static(path.join(__dirname,"public")))
 
 
-// 导入路由对象
+// 1导入路由对象(sccunt)
 const accountRouter = require(path.join(__dirname,"./routers/accountRouter.js"))
 app.use('/account',accountRouter)
+//参数1/account()一级路径是自定义的自己取的一个一级路径,一级路径,参数2:处理该路径的路由
+
+
+
+// 2导入路由对象(student)
+const studentRouter = require(path.join(__dirname,"./routers/studentRouter.js"))
+app.use('/student',studentRouter)
 //参数1/account()一级路径是自定义的自己取的一个一级路径,一级路径,参数2:处理该路径的路由
 
 
