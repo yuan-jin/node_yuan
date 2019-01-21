@@ -19,6 +19,8 @@ const url = 'mongodb://localhost:27017';
 // 
 const dbName = 'accountInfo';
 
+
+
 /**
  * module.exports = {
  *  getRegisterPage:箭头函数
@@ -45,7 +47,8 @@ exports.getRegisterPage=(req,res)=>{
    console.log(req.body);
      //1. 拿到浏览器传输过来的数据(body-parser ===> app.js)
      const {username} = req.body
-    /   console.log(username);
+      console.log(username);
+     
     
     
     
@@ -59,6 +62,7 @@ exports.getRegisterPage=(req,res)=>{
          const collection = db.collection("accountInfo");
     
          console.log(collection);
+        
     
         
          
@@ -102,12 +106,12 @@ exports.getLoginPage = (req,res)=>{
 
 }
 
-// 43导出验证码的方法
+// 4导出验证码的方法
 exports.getVcodeImg = (req,res)=>{
     const vcode = parseInt(Math.random()*9000+1000)
 
     req.session.vcode = vcode;//把voco的保存到session对象中
-    console.log(req.session);
+   console.log(req.session);
    
     
 
@@ -124,9 +128,64 @@ exports.getVcodeImg = (req,res)=>{
 
 }
 
-// 导出登录的方法
+
+// // 5导出登录的方法
 exports.login = (req,res)=>{
+  const result = {
+    status:0,
+    message:'登录成功'
+  };
+
+
+
     // 把浏览器传递过来的验证码和req.session.vode中的验证码对比
+    const {username,password,vcode} = req.body
+    console.log(req.body);
+    
+  
+    
+
+    // 验证码
+    if(vcode != req.session.vcode){
+      result.status = 1;
+      result.message = '验证码错误';
+      res.json(result);
+      return;
+
+    }
+    // 验证码正确
+    MongoClient.connect(url,{ useNewUrlParser: true }, function(err, client) {
+    
+      // 拿到db
+      const db = client.db(dbName);
+    
+      // 拿到集合
+      const collection = db.collection("accountInfo");
+ 
+      // console.log(collection);
+    
+      
+
+       // 查询一个
+       collection.findOne({ username,password }, (err, doc) => {
+        // 如果result == null 没有查询到，就可以插入，如果查询到了，说明用户名已经存在
+        if (!doc) {
+          // 存在
+          result.status = 2;
+          result.message = "用户名或是密码错误";
+  
+        }
+        // 关闭数据库
+        client.close();
+        // 返回
+        res.json(result);
+
+    
+
+    });
+
+
+  });  
     
 }
 

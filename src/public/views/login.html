@@ -54,6 +54,7 @@
     </div>
 </body>
 <script>
+    // 1获取图片验证码发送请求
     $("#vcodeimgId").click(function(){
         // GET 的缓存问题
         // GET & url不变
@@ -61,5 +62,36 @@
         // 值等于随机
        
     })
+
+    // 1单击了注册按钮跳转到注册页面
+    function register(){
+        location = '/account/register';
+    }
+
+    // 1点击登录
+    function login(){
+
+        // 1.1拿到用户输入的信息
+        username = $('#usernameId').val();//用户名
+        password =  $.md5($('#passwordId').val()+"@yyy")//用户密码
+        vcode = $('#vcodeId').val();//验证码
+
+        // 2.发送post请求
+        $.post('/account/login',{username,password,vcode},function(result){
+            // console.log(result);
+            if(result.status != 0){
+               alert('result.message');
+               $("#vcodeimgId").attr('src',`/account/vcode?aaa=${Math.random()}`)
+
+            }else{
+                location = 'account/student'
+                
+            }
+            
+        })
+
+
+    }
+    
 </script>
 </html> 

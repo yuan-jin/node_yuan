@@ -27,6 +27,9 @@ router.get('/login',accountController.getLoginPage)
 // 4获取验证码
 router.get('/vcode',accountController.getVcodeImg)
 
+// 4登录操作
+router.post('/login',accountController.login)
+
 
 // 4.导出路由模块
 module.exports = router 
