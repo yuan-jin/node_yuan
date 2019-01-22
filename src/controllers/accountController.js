@@ -4,6 +4,10 @@
 
 const path = require('path')
 
+
+// 2.导入封装的函数
+const databasetool = require(path.join(__dirname, "../tools/databasetoole"));
+
 // maogodb
 const MongoClient = require('mongodb').MongoClient;
 
@@ -17,7 +21,8 @@ const url = 'mongodb://localhost:27017';
 
 
 // 
-const dbName = 'accountInfo';
+// const dbName = 'accountInfo';
+const dbName = 'szhmqd27';
 
 
 
@@ -52,6 +57,7 @@ exports.getRegisterPage=(req,res)=>{
     
     
     
+     
      // 2.先判断数据库中的用户名,是否存在,如果存在返回提示(mongodb)
      MongoClient.connect(url,{useNewUrlParser:true},function(err,client){
     
@@ -62,11 +68,7 @@ exports.getRegisterPage=(req,res)=>{
          const collection = db.collection("accountInfo");
     
          console.log(collection);
-        
-    
-        
-         
-    
+  
          // 查询一个
       collection.findOne({ username }, (err, doc) => {
         // 如果result == null 没有查询到，就可以插入，如果查询到了，说明用户名已经存在
@@ -95,8 +97,40 @@ exports.getRegisterPage=(req,res)=>{
         }
       });
     }
+ 
+
+
   );
-};
+  
+
+ /**
+  databasetool.findYige("accountInfo", { username }, (err, doc) => {
+    // 如果result == null 没有查询到，就可以插入，如果查询到了，说明用户名已经存在
+    if (doc) {
+      // 存在
+      result.status = 1;
+      result.message = "用户名已经存在";
+
+      // 返回
+      res.json(result);
+    } else {
+      databasetool.insertSingle("accountInfo", req.body, (err, result2) => {
+        if (!result2) {
+          // 失败
+          result.status = 2;
+          result.message = "注册失败";
+        }
+
+        // 返回
+        res.json(result);
+      });
+    
+ 
+      };
+  });
+
+  */
+  }
 
 
 
@@ -130,7 +164,7 @@ exports.getVcodeImg = (req,res)=>{
 }
 
 
-// // 5导出登录的方法
+ // 5导出登录的方法
 exports.login = (req,res)=>{
   const result = {
     status:0,
@@ -170,6 +204,8 @@ exports.login = (req,res)=>{
        // 查询一个
        collection.findOne({ username,password }, (err, doc) => {
         // 如果result == null 没有查询到，就可以插入，如果查询到了，说明用户名已经存在
+        console.log(doc);
+        
         if (!doc) {
           // 存在
           result.status = 2;
