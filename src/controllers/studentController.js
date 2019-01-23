@@ -21,7 +21,7 @@ databasetool.findMany('studentInto',{name:{$regex:keyword}},(err,docs)=>{
   // 这个里面的代码，是当databasetool中findMany执行了callback
   // callback中会把 err,docs传递过来
   // 渲染页面的代码
-  const html = template(path.join(__dirname, "../public/views/list.html"), {students:docs,keyword});
+  const html = template(path.join(__dirname, "../public/views/list.html"), {students:docs,keyword,loginedName:req.session.loginedName});
   res.send(html);
     });
    
@@ -33,7 +33,9 @@ databasetool.findMany('studentInto',{name:{$regex:keyword}},(err,docs)=>{
 
 // 返回新增页面
 const getAddStudentPage =(req,res)=>{
-  const html = template(path.join(__dirname,"../public/views/add.html"),{});
+  const html = template(path.join(__dirname,"../public/views/add.html"),{
+    loginedName:req.session.loginedName
+  });
   res.send(html);
 }
 
