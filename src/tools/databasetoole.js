@@ -53,7 +53,7 @@ const insertSingle = (collectionName,data,callback)=>{
 
 
 /**
- * 
+ * 查询一个
  * @param {*} collectionName 集合名称
  * @param {*} data 数据
  * @param {*} callback 回调，把结果告知控制器
@@ -193,12 +193,13 @@ const gather = (collectionName,collback)=>{
 
 // 导出
 module.exports ={
-    insertSingle,
-    findYige,
-    findMany,
-    ObjectId,
-    updateYige,
+    ObjectId,//获取id的方法
+    insertSingle,//插入一条数据
+    findYige,//查询一个
+    findMany,//查询多个
+    updateYige,// 修改一个
     deleteYige
+    //删除一个
 
    
 
